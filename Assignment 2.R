@@ -8,7 +8,16 @@ library(tidyverse)
  
 library(here)
 
+<<<<<<< HEAD
 usstates <- read.csv(here("covid-19-data","us-states.csv"))
+=======
+setwd("~/BIS-244-firestonepeter")
+#No need to set directory if your RProject is in the same directory as your repository
+
+usstates <- read.csv("us-states.csv")
+>>>>>>> main
+
+usstates <- read.csv(here("covid-19-data","us-states.csv")) # correct way to read csv for future reference
 
 View(usstates)
 
@@ -30,6 +39,7 @@ n <- length(pennsylvania$date)
 
 #create case/death variables
 
+#You can also initiate Incr_cases with 2 or 1 as given in the dataset
 pennsylvania$incr_cases <- 4
 
 pennsylvania$incr_deaths <- 1
