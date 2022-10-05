@@ -1,5 +1,4 @@
 #import and combine file from COVID-19 submodule
-library(gapminder)
 library(here)
 library(tidyverse)
 
@@ -23,29 +22,27 @@ view(PACounties)
 Lehigh <- filter(PACounties, county=="Lehigh")
 
 #remove duplicate dates
-LehighCases <- distinct(Lehigh, date, .keep_all = TRUE)
+LehighCases <- distinct(Lehigh, date,.keep_all = TRUE)
 
 #find number of new cases at each date
-cases <- length(LehighCases$date)
+n <- length(LehighCases$date)
+LehighCases$incr_cases <- 0
 
-LehighCases$increase_cases <- 0
-
-for (i in 2:cases) {
-  LehighCases$increase_cases[i] <- (LehighCases$cases[i] - LehighCases$cases[i-1])
+for (i in 2:n)
+{
+  LehighCases$incr_cases[i] <- (LehighCases$cases[i]-LehighCases$cases[i-1])
 }
 
 view(LehighCases)
 
 #graph data
+
 p <- ggplot(data = LehighCases)
 
-
-p + geom_line(color="blue" , mapping = aes(x=date,
-                                   y=increase_cases),
-                group=1)+ 
-  labs(x = "Date" , y = "New Cases Reported",
-       title = "COVID-19 Cases In Lehigh, PA")
-
-
+p + geom_line(color="blue", mapping = aes(x=date,
+                                          y=incr_cases),
+              group=1)+
+  labs(x = "Date", y = "New Cases Reported",
+       title = "COVID-19 Cases In Lehigh,PA")
 
 
